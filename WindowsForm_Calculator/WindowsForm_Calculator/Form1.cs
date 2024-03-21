@@ -9,6 +9,9 @@ namespace WindowsForm_Calculator
         string operation_type;
         string operation_type_old;
         bool weSelectOperation = false;
+        bool weTypeSomething = false;
+        bool equalasrepit = false;
+        bool longoperatn = false;
 
         public Form1()
         {
@@ -31,6 +34,8 @@ namespace WindowsForm_Calculator
 
             if (Current_numstring.MaxLength != Current_numstring.Text.Length) //проверка длинны строки
             {
+                weTypeSomething = true;
+
                 if (Current_numstring.Text == "0") //если в строке у нас 0, просто 0
                 {
                     if (num.Text == "0") { return; } //не даем вписать второй 0
@@ -62,6 +67,26 @@ namespace WindowsForm_Calculator
                     else { Current_numstring.Text += num.Text; } 
                 }
             }
+            else
+            {
+                if (longoperatn == false)
+                {
+                    if (Current_numstring.Text == operant1.ToString()) //если текущая строка сформирована из элемента первого опперанта после операции
+                    {
+                        if (num.Text == ",")
+                        {
+                            if (!Current_numstring.Text.Contains(',') & num.Text == ",") { Current_numstring.Text = "0"; Current_numstring.Text += num.Text; } //проверяем на запятые, нельзя больше одной
+                            else if (Current_numstring.Text.Contains(',') & num.Text == ",") { return; }
+                        }
+                        else { Current_numstring.Text = ""; Current_numstring.Text = num.Text; } //обнуляем, потом пишем свое число
+                        longoperatn = true;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
             
         }
 
@@ -85,6 +110,8 @@ namespace WindowsForm_Calculator
                 operant2 = 0;
 
                 weSelectOperation = false;
+                weTypeSomething = false;
+                equalasrepit = false;
             }
 
             //Clear entry - чистит только строку ввода
@@ -126,20 +153,24 @@ namespace WindowsForm_Calculator
                 operation_type_old = operation_type; //если мы уже соверашали какую-то операцию до нее, то уводим ее в operation_type_old
                 operation_type = "+"; //задаем новое значение типа операции
 
-                if (weSelectOperation == false) //если мы еще не задавали никаких значений (operant1 = 0), нужно присвоить что-то
-                    operant1 = double.Parse(Current_numstring.Text);
+                if (weSelectOperation == false)
+                    operant1 = double.Parse(Current_numstring.Text);//если мы еще не задавали никаких значений (operant1 = 0), нужно присвоить что-то
                 else
                 {
-                    if (operation_type_old == operation_type) //если мы повторяем операцию, то просто дублируем ее для первого операнта
+                    if (operation_type_old == operation_type  & weTypeSomething == true) //если мы повторяем операцию, то просто дублируем ее для первого операнта
                     {
                         operant1 += double.Parse(Current_numstring.Text);
                     }
-                    else //если эта операция следует после какой-то иной, то нам нужно завершить прошлую операцию, прежде чем давать пользователю умножать что либо
-                    {    //при последовательности ввода 1 + 3 * 4 - пользователю сначала интересно узнать сумму 1+3 и только после этого ее значение помноженное на 4
-                        operant1 = Operation_class.previous_operation(operation_type_old, operant1, Current_numstring, temp_numstring);
+                    else 
+                    {
+                        if (weTypeSomething == true)
+                        {
+                            operant1 = Operation_class.previous_operation(operation_type_old, operant1, Current_numstring, temp_numstring);
+                        }
                     }
                 }
 
+                weTypeSomething = false;
                 weSelectOperation = true; //говорим о том, что мы теперь уже выбрали операцию и другие работают по другому правилу
                 temp_numstring.Text = operant1.ToString() + ((Button)sender).Text; //уводим предворительную форму в temp_numstring для удобства
                 Current_numstring.Text = operant1.ToString(); //не знаб зачем но Windows calculator дает изначально в вод предварительный результат
@@ -155,16 +186,20 @@ namespace WindowsForm_Calculator
                     operant1 = double.Parse(Current_numstring.Text);
                 else
                 {
-                    if (operation_type_old == operation_type)
+                    if (operation_type_old == operation_type & weTypeSomething == true)
                     {
                         operant1 -= double.Parse(Current_numstring.Text);
                     }
                     else
                     {
-                        operant1 = Operation_class.previous_operation(operation_type_old, operant1, Current_numstring, temp_numstring);
+                        if (weTypeSomething == true)
+                        {
+                            operant1 = Operation_class.previous_operation(operation_type_old, operant1, Current_numstring, temp_numstring);
+                        }
                     }
                 }
 
+                weTypeSomething = false;
                 weSelectOperation = true;
                 temp_numstring.Text = operant1.ToString() + ((Button)sender).Text;
                 Current_numstring.Text = operant1.ToString();
@@ -180,16 +215,20 @@ namespace WindowsForm_Calculator
                     operant1 = double.Parse(Current_numstring.Text);
                 else
                 {
-                    if (operation_type_old == operation_type)
+                    if (operation_type_old == operation_type & weTypeSomething == true)
                     {
                         operant1 *= double.Parse(Current_numstring.Text);
                     }
                     else
                     {
-                        operant1 = Operation_class.previous_operation(operation_type_old, operant1, Current_numstring, temp_numstring);
+                        if (weTypeSomething == true)
+                        {
+                            operant1 = Operation_class.previous_operation(operation_type_old, operant1, Current_numstring, temp_numstring);
+                        }
                     }
                 }
 
+                weTypeSomething = false;
                 weSelectOperation = true;
                 temp_numstring.Text = operant1.ToString() + ((Button)sender).Text;
                 Current_numstring.Text = operant1.ToString();
@@ -205,16 +244,20 @@ namespace WindowsForm_Calculator
                     operant1 = double.Parse(Current_numstring.Text);
                 else
                 {
-                    if (operation_type_old == operation_type)
+                    if (operation_type_old == operation_type & weTypeSomething == true)
                     {
                         operant1 /= double.Parse(Current_numstring.Text);
                     }
                     else
                     {
-                        operant1 = Operation_class.previous_operation(operation_type_old, operant1, Current_numstring, temp_numstring);
+                        if (weTypeSomething == true)
+                        {
+                            operant1 = Operation_class.previous_operation(operation_type_old, operant1, Current_numstring, temp_numstring);
+                        }
                     }
                 }
 
+                weTypeSomething = false;
                 weSelectOperation = true;
                 temp_numstring.Text = operant1.ToString() + ((Button)sender).Text;
                 Current_numstring.Text = operant1.ToString();
@@ -268,30 +311,47 @@ namespace WindowsForm_Calculator
         {
             if (operation_type == "+")
             {
-                operant2 = double.Parse(Current_numstring.Text);
-                temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
-                Current_numstring.Text = (operant1 + operant2).ToString();
+                if (equalasrepit == false)
+                {
+                    operant2 = double.Parse(Current_numstring.Text);
+                    temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
+                    Current_numstring.Text = (operant1 + operant2).ToString();
+                    equalasrepit = true;
+                }
+                
             }
 
             if (operation_type == "-")
             {
-                operant2 = double.Parse(Current_numstring.Text);
-                temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
-                Current_numstring.Text = (operant1 - operant2).ToString();
+                if (equalasrepit == false)
+                {
+                    operant2 = double.Parse(Current_numstring.Text);
+                    temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
+                    Current_numstring.Text = (operant1 - operant2).ToString();
+                    equalasrepit = true;
+                }
             }
 
             if (operation_type == "×")
             {
-                operant2 = double.Parse(Current_numstring.Text);
-                temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
-                Current_numstring.Text = (operant1 * operant2).ToString();
+                if (equalasrepit == false)
+                {
+                    operant2 = double.Parse(Current_numstring.Text);
+                    temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
+                    Current_numstring.Text = (operant1 * operant2).ToString();
+                    equalasrepit = true;
+                }
             }
 
             if (operation_type == "÷")
             {
-                operant2 = double.Parse(Current_numstring.Text);
-                temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
-                Current_numstring.Text = (operant1 / operant2).ToString();
+                if (equalasrepit == false)
+                {
+                    operant2 = double.Parse(Current_numstring.Text);
+                    temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
+                    Current_numstring.Text = (operant1 / operant2).ToString();
+                    equalasrepit = true;
+                }
             }
 
             weSelectOperation = false;
