@@ -318,6 +318,12 @@ namespace WindowsForm_Calculator
                     Current_numstring.Text = (operant1 + operant2).ToString();
                     equalasrepit = true;
                 }
+                else
+                {
+                    operant1 = double.Parse(Current_numstring.Text);
+                    temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
+                    Current_numstring.Text = (operant1 + operant2).ToString();
+                }
                 
             }
 
@@ -330,6 +336,12 @@ namespace WindowsForm_Calculator
                     Current_numstring.Text = (operant1 - operant2).ToString();
                     equalasrepit = true;
                 }
+                else
+                {
+                    operant1 = double.Parse(Current_numstring.Text);
+                    temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
+                    Current_numstring.Text = (operant1 - operant2).ToString();
+                }
             }
 
             if (operation_type == "×")
@@ -341,6 +353,12 @@ namespace WindowsForm_Calculator
                     Current_numstring.Text = (operant1 * operant2).ToString();
                     equalasrepit = true;
                 }
+                else
+                {
+                    operant1 = double.Parse(Current_numstring.Text);
+                    temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
+                    Current_numstring.Text = (operant1 * operant2).ToString();
+                }
             }
 
             if (operation_type == "÷")
@@ -351,6 +369,12 @@ namespace WindowsForm_Calculator
                     temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
                     Current_numstring.Text = (operant1 / operant2).ToString();
                     equalasrepit = true;
+                }
+                else
+                {
+                    operant1 = double.Parse(Current_numstring.Text);
+                    temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
+                    Current_numstring.Text = (operant1 / operant2).ToString();
                 }
             }
 
