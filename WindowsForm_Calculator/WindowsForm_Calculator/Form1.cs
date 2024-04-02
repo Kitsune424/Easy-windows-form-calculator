@@ -10,10 +10,11 @@ namespace WindowsForm_Calculator
         string operation_type;
         string operation_type_old;     //исправль ошибку с "не число" при отрицательных числах под корнем
 
-        bool weSelectOperation = false;
-        bool weTypeSomething = false;
-        bool equalasrepit = false;
-        bool longoperatn = false;
+        bool weSelectOperation = false; // проверка на выбор операции
+        bool weTypeSomething = false; // проверка на использование нумпаад
+        bool equalasrepit = false; // проверка на повторное равно
+        bool longoperatn = false; // проверка огромное число операнта 
+        bool error = false; // проверка входа в ошибку для смены поведения кнопок редактирования
 
         public Form1()
         {
@@ -106,8 +107,59 @@ namespace WindowsForm_Calculator
         /// <param name="e"></param>
         private void string_clear(object sender, EventArgs e)
         {
-            //Clear - очищает вообще все
-            if (((Button)sender).Text == "C")
+            if (error == false)
+            {
+                //Clear - очищает вообще все
+                if (((Button)sender).Text == "C")
+                {
+                    operation_type = "";
+                    operation_type_old = "";
+
+                    Current_numstring.Text = "0";
+                    temp_numstring.Text = "";
+
+                    operant1 = 0;
+                    operant2 = 0;
+
+                    weSelectOperation = false;
+                    weTypeSomething = false;
+                    equalasrepit = false;
+
+                    enableallButton();
+                }
+
+                //Clear entry - чистит только строку ввода
+                else if (((Button)sender).Text == "CE")
+                {
+                    Current_numstring.Text = "0";
+                }
+
+                //backspace - убирает строку посимвольно
+                else
+                {
+                    if (Current_numstring.Text == operant1.ToString())
+                        return;
+                    if (Current_numstring.Text != "0")
+                    {
+                        if (Current_numstring.Text == operant1.ToString())
+                        {
+                            return;
+                        }
+                        else if (Current_numstring.Text == "деление на 0")
+                        {
+                            Current_numstring.Text = "";
+                        }
+                        else
+                        {
+                            Current_numstring.Text = Current_numstring.Text.Remove(Current_numstring.Text.Length - 1, 1);
+                        }
+                    }
+                }
+
+                if (Current_numstring.Text == "" || Current_numstring.Text == "-")
+                    Current_numstring.Text = "0";
+            }
+            else // если мы вошли в ошибку у нас любая кнопка редактирования должна стирать все
             {
                 operation_type = "";
                 operation_type_old = "";
@@ -123,38 +175,11 @@ namespace WindowsForm_Calculator
                 equalasrepit = false;
 
                 enableallButton();
-            }
 
-            //Clear entry - чистит только строку ввода
-            else if (((Button)sender).Text == "CE")
-            {
-                Current_numstring.Text = "0";
+                if (Current_numstring.Text == "" || Current_numstring.Text == "-")
+                    Current_numstring.Text = "0";
             }
-
-            //backspace - убирает строку посимвольно
-            else
-            {
-                if (Current_numstring.Text == operant1.ToString())
-                    return;
-                if (Current_numstring.Text != "0")
-                {
-                    if (Current_numstring.Text == operant1.ToString())
-                    {
-                        return;
-                    }
-                    else if (Current_numstring.Text == "деление на 0")
-                    {
-                        Current_numstring.Text = "";
-                    }
-                    else
-                    {
-                        Current_numstring.Text = Current_numstring.Text.Remove(Current_numstring.Text.Length - 1, 1);
-                    }
-                }
-            }
-
-            if (Current_numstring.Text == "" || Current_numstring.Text == "-")
-                Current_numstring.Text = "0";
+            
         }
 
         /// <summary>
@@ -310,12 +335,19 @@ namespace WindowsForm_Calculator
             if (((Button)sender).Text == "√")
             {
                 operant1 = double.Parse(Current_numstring.Text);
-                double num = Math.Sqrt(operant1);
-
-                temp_numstring.Text = $"√({operant1})";
-
-                operant1 = num;
-                Current_numstring.Text = operant1.ToString();
+                if (operant1 < 0)
+                {
+                    temp_numstring.Text = $"√({operant1})";
+                    Current_numstring.Text = "Sqrt Error";
+                    disabledAllButton();
+                }
+                else 
+                { 
+                    double num = Math.Sqrt(operant1);
+                    temp_numstring.Text = $"√({operant1})";
+                    operant1 = num;
+                    Current_numstring.Text = operant1.ToString();
+                }
             }
 
             //возведение в квадрат
@@ -351,14 +383,14 @@ namespace WindowsForm_Calculator
                 {
                     operant2 = double.Parse(Current_numstring.Text);
                     temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
-                    Current_numstring.Text = (operant1 + operant2).ToString();
+                    Current_numstring.Text = (Math.Round(operant1 + operant2, 6)).ToString();
                     equalasrepit = true;
                 }
                 else
                 {
                     operant1 = double.Parse(Current_numstring.Text);
                     temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
-                    Current_numstring.Text = (operant1 + operant2).ToString();
+                    Current_numstring.Text = (Math.Round(operant1 + operant2, 6)).ToString();
                 }
 
             }
@@ -386,14 +418,14 @@ namespace WindowsForm_Calculator
                 {
                     operant2 = double.Parse(Current_numstring.Text);
                     temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
-                    Current_numstring.Text = (operant1 * operant2).ToString();
+                    Current_numstring.Text = (Math.Round((operant1 * operant2), 2)).ToString();
                     equalasrepit = true;
                 }
                 else
                 {
                     operant1 = double.Parse(Current_numstring.Text);
                     temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString() + ((Button)sender).Text;
-                    Current_numstring.Text = (operant1 * operant2).ToString();
+                    Current_numstring.Text = (Math.Round((operant1 * operant2), 2)).ToString();
                 }
             }
 
@@ -487,6 +519,7 @@ namespace WindowsForm_Calculator
         /// </summary>
         public void enableallButton()
         {
+            error = false;
             button_procent.Enabled = true;
             button_squaring.Enabled = true;
             button_sqrt.Enabled = true;
@@ -504,6 +537,7 @@ namespace WindowsForm_Calculator
         /// </summary>
         public void disabledAllButton()
         {
+            error = true;
             button_procent.Enabled = false;
             button_squaring.Enabled = false;
             button_sqrt.Enabled = false;
