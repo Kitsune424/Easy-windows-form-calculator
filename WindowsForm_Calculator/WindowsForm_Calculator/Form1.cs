@@ -8,7 +8,7 @@ namespace WindowsForm_Calculator
         double operant2 = 0;
 
         string operation_type;
-        string operation_type_old;     //исправль ошибку с "не число" при отрицательных числах под корнем
+        string operation_type_old;     //При очень больших числах убрать вход в бесконечность
 
         bool weSelectOperation = false; // проверка на выбор операции
         bool weTypeSomething = false; // проверка на использование нумпаад
@@ -63,7 +63,14 @@ namespace WindowsForm_Calculator
 
                 else //если не впали в первые два условия
                 {
-                    if (Current_numstring.Text == "деление на 0")
+                    if
+                        (
+                        Current_numstring.Text == "деление на 0" ||
+                        Current_numstring.Text == "Sqrt Error" ||
+                        Current_numstring.Text == "Не число" ||
+                        Current_numstring.Text == "∞" ||
+                        Current_numstring.Text == "Переполнение"
+                        )
                     {
                         string_clear();
                         Current_numstring.Text = "";
@@ -145,7 +152,13 @@ namespace WindowsForm_Calculator
                         {
                             return;
                         }
-                        else if (Current_numstring.Text == "деление на 0")
+                        else if (
+                            Current_numstring.Text == "деление на 0" ||
+                            Current_numstring.Text == "Sqrt Error" ||
+                            Current_numstring.Text == "Не число" ||
+                            Current_numstring.Text == "∞" ||
+                            Current_numstring.Text == "Переполнение"
+                            )
                         {
                             Current_numstring.Text = "";
                         }
@@ -179,7 +192,7 @@ namespace WindowsForm_Calculator
                 if (Current_numstring.Text == "" || Current_numstring.Text == "-")
                     Current_numstring.Text = "0";
             }
-            
+
         }
 
         /// <summary>
@@ -207,6 +220,13 @@ namespace WindowsForm_Calculator
         private void operation(object sender, EventArgs e)
         {
             equalasrepit = false;
+
+            if (Current_numstring.Text == "Не число" || Current_numstring.Text == "∞")
+            {
+                disabledAllButton();
+                Current_numstring.Text = "Переполнение";
+            }
+
 
             //сложение
             if (((Button)sender).Text == "+")
@@ -341,8 +361,8 @@ namespace WindowsForm_Calculator
                     Current_numstring.Text = "Sqrt Error";
                     disabledAllButton();
                 }
-                else 
-                { 
+                else
+                {
                     double num = Math.Sqrt(operant1);
                     temp_numstring.Text = $"√({operant1})";
                     operant1 = num;
@@ -370,6 +390,12 @@ namespace WindowsForm_Calculator
                 temp_numstring.Text = operant1.ToString() + operation_type + operant2.ToString();
                 Current_numstring.Text = operant2.ToString();
             }
+
+            if (Current_numstring.Text == "Не число" || Current_numstring.Text == "∞")
+            {
+                disabledAllButton();
+                Current_numstring.Text = "Переполнение";
+            }
         }
 
         /// <summary>
@@ -377,6 +403,12 @@ namespace WindowsForm_Calculator
         /// </summary>
         private void equals_operation(object sender, EventArgs e)
         {
+            if (Current_numstring.Text == "Не число" || Current_numstring.Text == "∞")
+            {
+                disabledAllButton();
+                Current_numstring.Text = "Переполнение";
+            }
+
             if (operation_type == "+")
             {
                 if (equalasrepit == false)
@@ -446,7 +478,7 @@ namespace WindowsForm_Calculator
                         Current_numstring.Text = "деление на 0";
                         disabledAllButton();
                     }
-                    
+
                 }
                 else
                 {
@@ -456,6 +488,11 @@ namespace WindowsForm_Calculator
                 }
             }
 
+            if (Current_numstring.Text == "Не число" || Current_numstring.Text == "∞")
+            {
+                disabledAllButton();
+                Current_numstring.Text = "Переполнение";
+            }
             weSelectOperation = false;
         }
 
@@ -469,6 +506,12 @@ namespace WindowsForm_Calculator
         /// <returns></returns>
         public double previous_operation(string old_operation, double operant, TextBox current, TextBox temp)
         {
+            if (Current_numstring.Text == "Не число" || Current_numstring.Text == "∞")
+            {
+                disabledAllButton();
+                Current_numstring.Text = "Переполнение";
+            }
+
             if (old_operation == "+")
             {
                 operant += double.Parse(current.Text);
@@ -508,7 +551,7 @@ namespace WindowsForm_Calculator
                     current.Text = operant.ToString();
                     return operant;
                 }
-                
+
             }
 
             return 0;
@@ -549,6 +592,5 @@ namespace WindowsForm_Calculator
             button_comma.Enabled = false;
             button_equals.Enabled = false;
         }
-
     }
 }

@@ -59,10 +59,10 @@
             // 
             Current_numstring.BackColor = Color.FromArgb(32, 32, 32);
             Current_numstring.BorderStyle = BorderStyle.None;
-            Current_numstring.Font = new Font("Segoe UI Semibold", 27F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            Current_numstring.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
             Current_numstring.ForeColor = SystemColors.Window;
             Current_numstring.ImeMode = ImeMode.NoControl;
-            Current_numstring.Location = new Point(8, 155);
+            Current_numstring.Location = new Point(7, 99);
             Current_numstring.Margin = new Padding(3, 0, 3, 13);
             Current_numstring.MaximumSize = new Size(357, 52);
             Current_numstring.MaxLength = 14;
@@ -82,7 +82,7 @@
             button_plusminus.FlatStyle = FlatStyle.Flat;
             button_plusminus.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             button_plusminus.ForeColor = Color.White;
-            button_plusminus.Location = new Point(8, 561);
+            button_plusminus.Location = new Point(7, 493);
             button_plusminus.Margin = new Padding(2, 3, 2, 3);
             button_plusminus.Name = "button_plusminus";
             button_plusminus.Size = new Size(86, 60);
@@ -98,7 +98,7 @@
             num_0.FlatStyle = FlatStyle.Flat;
             num_0.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             num_0.ForeColor = Color.White;
-            num_0.Location = new Point(98, 561);
+            num_0.Location = new Point(97, 493);
             num_0.Margin = new Padding(2, 3, 2, 3);
             num_0.Name = "num_0";
             num_0.Size = new Size(86, 60);
@@ -114,7 +114,7 @@
             button_comma.FlatStyle = FlatStyle.Flat;
             button_comma.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 204);
             button_comma.ForeColor = Color.White;
-            button_comma.Location = new Point(189, 561);
+            button_comma.Location = new Point(188, 493);
             button_comma.Margin = new Padding(2, 3, 2, 3);
             button_comma.Name = "button_comma";
             button_comma.Size = new Size(86, 60);
@@ -130,7 +130,7 @@
             num_3.FlatStyle = FlatStyle.Flat;
             num_3.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             num_3.ForeColor = Color.White;
-            num_3.Location = new Point(189, 496);
+            num_3.Location = new Point(188, 428);
             num_3.Margin = new Padding(2, 3, 2, 3);
             num_3.Name = "num_3";
             num_3.Size = new Size(86, 60);
@@ -146,7 +146,7 @@
             num_2.FlatStyle = FlatStyle.Flat;
             num_2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             num_2.ForeColor = Color.White;
-            num_2.Location = new Point(98, 496);
+            num_2.Location = new Point(97, 428);
             num_2.Margin = new Padding(2, 3, 2, 3);
             num_2.Name = "num_2";
             num_2.Size = new Size(86, 60);
@@ -162,7 +162,7 @@
             num_1.FlatStyle = FlatStyle.Flat;
             num_1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             num_1.ForeColor = Color.White;
-            num_1.Location = new Point(8, 496);
+            num_1.Location = new Point(7, 428);
             num_1.Margin = new Padding(2, 3, 2, 3);
             num_1.Name = "num_1";
             num_1.Size = new Size(86, 60);
@@ -178,7 +178,7 @@
             num_6.FlatStyle = FlatStyle.Flat;
             num_6.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             num_6.ForeColor = Color.White;
-            num_6.Location = new Point(189, 431);
+            num_6.Location = new Point(188, 363);
             num_6.Margin = new Padding(2, 3, 2, 3);
             num_6.Name = "num_6";
             num_6.Size = new Size(86, 60);
@@ -194,7 +194,7 @@
             num_5.FlatStyle = FlatStyle.Flat;
             num_5.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             num_5.ForeColor = Color.White;
-            num_5.Location = new Point(98, 431);
+            num_5.Location = new Point(97, 363);
             num_5.Margin = new Padding(2, 3, 2, 3);
             num_5.Name = "num_5";
             num_5.Size = new Size(86, 60);
@@ -210,7 +210,7 @@
             num_4.FlatStyle = FlatStyle.Flat;
             num_4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             num_4.ForeColor = Color.White;
-            num_4.Location = new Point(8, 431);
+            num_4.Location = new Point(7, 363);
             num_4.Margin = new Padding(2, 3, 2, 3);
             num_4.Name = "num_4";
             num_4.Size = new Size(86, 60);
@@ -226,7 +226,7 @@
             num_9.FlatStyle = FlatStyle.Flat;
             num_9.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             num_9.ForeColor = Color.White;
-            num_9.Location = new Point(189, 365);
+            num_9.Location = new Point(188, 297);
             num_9.Margin = new Padding(2, 3, 2, 3);
             num_9.Name = "num_9";
             num_9.Size = new Size(86, 60);
@@ -242,7 +242,7 @@
             num_8.FlatStyle = FlatStyle.Flat;
             num_8.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             num_8.ForeColor = Color.White;
-            num_8.Location = new Point(98, 365);
+            num_8.Location = new Point(97, 297);
             num_8.Margin = new Padding(2, 3, 2, 3);
             num_8.Name = "num_8";
             num_8.Size = new Size(86, 60);
@@ -258,7 +258,7 @@
             num_7.FlatStyle = FlatStyle.Flat;
             num_7.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             num_7.ForeColor = Color.White;
-            num_7.Location = new Point(8, 365);
+            num_7.Location = new Point(7, 297);
             num_7.Margin = new Padding(2, 3, 2, 3);
             num_7.Name = "num_7";
             num_7.Size = new Size(86, 60);
@@ -274,7 +274,7 @@
             button_multiply.FlatStyle = FlatStyle.Flat;
             button_multiply.Font = new Font("Lucida Sans Unicode", 14.25F);
             button_multiply.ForeColor = Color.White;
-            button_multiply.Location = new Point(279, 300);
+            button_multiply.Location = new Point(278, 232);
             button_multiply.Margin = new Padding(2, 3, 2, 3);
             button_multiply.Name = "button_multiply";
             button_multiply.Size = new Size(86, 60);
@@ -290,7 +290,7 @@
             button_minus.FlatStyle = FlatStyle.Flat;
             button_minus.Font = new Font("Lucida Sans Unicode", 14.25F);
             button_minus.ForeColor = Color.White;
-            button_minus.Location = new Point(279, 365);
+            button_minus.Location = new Point(278, 297);
             button_minus.Margin = new Padding(2, 3, 2, 3);
             button_minus.Name = "button_minus";
             button_minus.Size = new Size(86, 60);
@@ -306,7 +306,7 @@
             button_plus.FlatStyle = FlatStyle.Flat;
             button_plus.Font = new Font("Lucida Sans Unicode", 14.25F);
             button_plus.ForeColor = Color.White;
-            button_plus.Location = new Point(279, 431);
+            button_plus.Location = new Point(278, 363);
             button_plus.Margin = new Padding(2, 3, 2, 3);
             button_plus.Name = "button_plus";
             button_plus.Size = new Size(86, 60);
@@ -322,7 +322,7 @@
             button_equals.FlatStyle = FlatStyle.Flat;
             button_equals.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 204);
             button_equals.ForeColor = Color.Black;
-            button_equals.Location = new Point(279, 496);
+            button_equals.Location = new Point(278, 428);
             button_equals.Margin = new Padding(2, 3, 2, 3);
             button_equals.Name = "button_equals";
             button_equals.Size = new Size(86, 125);
@@ -338,7 +338,7 @@
             button_division.FlatStyle = FlatStyle.Flat;
             button_division.Font = new Font("Lucida Sans Unicode", 14.25F);
             button_division.ForeColor = Color.White;
-            button_division.Location = new Point(279, 235);
+            button_division.Location = new Point(278, 167);
             button_division.Margin = new Padding(2, 3, 2, 3);
             button_division.Name = "button_division";
             button_division.Size = new Size(86, 60);
@@ -354,7 +354,7 @@
             button_clear.FlatStyle = FlatStyle.Flat;
             button_clear.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             button_clear.ForeColor = Color.White;
-            button_clear.Location = new Point(189, 235);
+            button_clear.Location = new Point(188, 167);
             button_clear.Margin = new Padding(2, 3, 2, 3);
             button_clear.Name = "button_clear";
             button_clear.Size = new Size(86, 60);
@@ -370,7 +370,7 @@
             button_clearentry.FlatStyle = FlatStyle.Flat;
             button_clearentry.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             button_clearentry.ForeColor = Color.White;
-            button_clearentry.Location = new Point(98, 235);
+            button_clearentry.Location = new Point(97, 167);
             button_clearentry.Margin = new Padding(2, 3, 2, 3);
             button_clearentry.Name = "button_clearentry";
             button_clearentry.Size = new Size(86, 60);
@@ -386,7 +386,7 @@
             button_Backspace.FlatStyle = FlatStyle.Flat;
             button_Backspace.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             button_Backspace.ForeColor = Color.White;
-            button_Backspace.Location = new Point(8, 235);
+            button_Backspace.Location = new Point(7, 167);
             button_Backspace.Margin = new Padding(2, 3, 2, 3);
             button_Backspace.Name = "button_Backspace";
             button_Backspace.Size = new Size(86, 60);
@@ -402,7 +402,7 @@
             button_sqrt.FlatStyle = FlatStyle.Flat;
             button_sqrt.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             button_sqrt.ForeColor = Color.White;
-            button_sqrt.Location = new Point(189, 300);
+            button_sqrt.Location = new Point(188, 232);
             button_sqrt.Margin = new Padding(2, 3, 2, 3);
             button_sqrt.Name = "button_sqrt";
             button_sqrt.Size = new Size(86, 60);
@@ -418,7 +418,7 @@
             button_squaring.FlatStyle = FlatStyle.Flat;
             button_squaring.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             button_squaring.ForeColor = Color.White;
-            button_squaring.Location = new Point(98, 300);
+            button_squaring.Location = new Point(97, 232);
             button_squaring.Margin = new Padding(2, 3, 2, 3);
             button_squaring.Name = "button_squaring";
             button_squaring.Size = new Size(86, 60);
@@ -434,7 +434,7 @@
             button_procent.FlatStyle = FlatStyle.Flat;
             button_procent.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             button_procent.ForeColor = Color.White;
-            button_procent.Location = new Point(8, 300);
+            button_procent.Location = new Point(7, 232);
             button_procent.Margin = new Padding(2, 3, 2, 3);
             button_procent.Name = "button_procent";
             button_procent.Size = new Size(86, 60);
@@ -447,14 +447,14 @@
             // 
             temp_numstring.BackColor = Color.FromArgb(32, 32, 32);
             temp_numstring.BorderStyle = BorderStyle.None;
-            temp_numstring.Font = new Font("Segoe UI Semibold", 16F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            temp_numstring.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
             temp_numstring.ForeColor = Color.FromArgb(147, 147, 147);
-            temp_numstring.Location = new Point(8, 101);
+            temp_numstring.Location = new Point(7, 33);
             temp_numstring.Margin = new Padding(3, 7, 3, 0);
             temp_numstring.MaxLength = 16;
             temp_numstring.Name = "temp_numstring";
             temp_numstring.ReadOnly = true;
-            temp_numstring.Size = new Size(357, 36);
+            temp_numstring.Size = new Size(357, 27);
             temp_numstring.TabIndex = 24;
             temp_numstring.TextAlign = HorizontalAlignment.Right;
             // 
@@ -463,7 +463,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(32, 32, 32);
-            ClientSize = new Size(370, 625);
+            ClientSize = new Size(370, 561);
             Controls.Add(temp_numstring);
             Controls.Add(Current_numstring);
             Controls.Add(button_sqrt);
@@ -491,7 +491,7 @@
             Controls.Add(button_plusminus);
             Margin = new Padding(3, 4, 3, 4);
             MaximumSize = new Size(388, 672);
-            MinimumSize = new Size(388, 672);
+            MinimumSize = new Size(388, 0);
             Name = "Form1";
             Text = "Калькулятор";
             ResumeLayout(false);
