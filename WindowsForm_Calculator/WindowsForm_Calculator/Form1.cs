@@ -2,19 +2,22 @@
 
 namespace WindowsForm_Calculator
 {
+    // починить что при 9999 и операции если снова вводить 9999 то все стирается 
     public partial class Form1 : Form
     {
         double operant1 = 0;
         double operant2 = 0;
 
         string operation_type;
-        string operation_type_old;     //При очень больших числах убрать вход в бесконечность
+        string operation_type_old;              // При очень больших числах убрать вход в бесконечность
 
-        bool weSelectOperation = false; // проверка на выбор операции
-        bool weTypeSomething = false; // проверка на использование нумпаад
-        bool equalasrepit = false; // проверка на повторное равно
-        bool longoperatn = false; // проверка огромное число операнта 
-        bool error = false; // проверка входа в ошибку для смены поведения кнопок редактирования
+        bool weSelectOperation = false;         // проверка на выбор операции
+        bool weTypeSomething = false;           // проверка на использование нумпаад
+        bool equalasrepit = false;              // проверка на повторное равно
+        bool longoperatn = false;               // проверка огромное число операнта 
+        bool error = false;                     // проверка входа в ошибку для смены поведения кнопок редактирования
+        bool weUseEquals = false;               // проверка на вывод ответа через равно
+        bool zeroDiv = false;
 
         public Form1()
         {
@@ -42,7 +45,18 @@ namespace WindowsForm_Calculator
 
                 if (Current_numstring.Text == "0") //если в строке у нас 0, просто 0
                 {
-                    if (num.Text == "0") { return; } //не даем вписать второй 0
+                    if (weUseEquals)
+                    {
+                        Current_numstring.Text = "";
+                        Current_numstring.Text = num.Text;
+                        temp_numstring.Text = "";
+                        weUseEquals = false;
+                    }
+
+                    else if (num.Text == "0")
+                    { 
+                        return; //не даем вписать второй 0
+                    } 
                     else if (num.Text == ",")
                     {
                         if (!Current_numstring.Text.Contains(',') & num.Text == ",") { Current_numstring.Text += num.Text; } //проверяем на запятые, нельзя больше одной
@@ -51,14 +65,21 @@ namespace WindowsForm_Calculator
                     else { Current_numstring.Text = ""; Current_numstring.Text += num.Text; } //убираем 0 и ставим число
                 }
 
-                else if (Current_numstring.Text == operant1.ToString()) //если текущая строка сформирована из элемента первого опперанта после операции
+                else if (Current_numstring.Text == operant1.ToString() || weUseEquals == true) //если текущая строка сформирована из элемента первого опперанта после операции
                 {
                     if (num.Text == ",")
                     {
                         if (!Current_numstring.Text.Contains(',') & num.Text == ",") { Current_numstring.Text = "0"; Current_numstring.Text += num.Text; } //проверяем на запятые, нельзя больше одной
                         else if (Current_numstring.Text.Contains(',') & num.Text == ",") { return; }
                     }
-                    else { Current_numstring.Text = ""; Current_numstring.Text = num.Text; } //обнуляем, потом пишем свое число
+                    else //обнуляем, потом пишем свое число
+                    { 
+                        Current_numstring.Text = "";
+                        Current_numstring.Text = num.Text;
+
+                        if (weUseEquals) // если мы жали равно, то стираем память, начинаем все с нуля
+                            temp_numstring.Text = ""; weUseEquals = false;
+                    } 
                 }
 
                 else //если не впали в первые два условия
@@ -88,21 +109,25 @@ namespace WindowsForm_Calculator
             {
                 if (longoperatn == false)
                 {
-                    if (Current_numstring.Text == operant1.ToString()) //если текущая строка сформирована из элемента первого опперанта после операции
+                    if (Current_numstring.Text == operant1.ToString() || weUseEquals) //если текущая строка сформирована из элемента первого опперанта после операции
                     {
                         if (num.Text == ",")
                         {
                             if (!Current_numstring.Text.Contains(',') & num.Text == ",") { Current_numstring.Text = "0"; Current_numstring.Text += num.Text; } //проверяем на запятые, нельзя больше одной
                             else if (Current_numstring.Text.Contains(',') & num.Text == ",") { return; }
                         }
-                        else { Current_numstring.Text = ""; Current_numstring.Text = num.Text; } //обнуляем, потом пишем свое число
+                        else
+                        {   //обнуляем, потом пишем свое число
+                            Current_numstring.Text = "";
+                            Current_numstring.Text = num.Text;
+
+                            if (weUseEquals) // если мы жали равно, то стираем память, начинаем все с нуля
+                                temp_numstring.Text = ""; weUseEquals = false;
+                        }
                         longoperatn = true;
                     }
                 }
-                else
-                {
-                    return;
-                }
+                else { return; }
             }
 
         }
@@ -128,6 +153,8 @@ namespace WindowsForm_Calculator
                     operant1 = 0;
                     operant2 = 0;
 
+                    zeroDiv = false;
+                    weUseEquals = false;
                     weSelectOperation = false;
                     weTypeSomething = false;
                     equalasrepit = false;
@@ -139,16 +166,30 @@ namespace WindowsForm_Calculator
                 else if (((Button)sender).Text == "CE")
                 {
                     Current_numstring.Text = "0";
+                    weUseEquals = false;
                 }
 
                 //backspace - убирает строку посимвольно
                 else
                 {
-                    if (Current_numstring.Text == operant1.ToString())
-                        return;
-                    if (Current_numstring.Text != "0")
+                    if (weUseEquals == true)
                     {
-                        if (Current_numstring.Text == operant1.ToString())
+                        temp_numstring.Text = "";
+                        //weUseEquals = false;
+                    }
+
+                    else if (Current_numstring.Text == operant1.ToString())
+                        return;
+
+                    else if (Current_numstring.Text != "0")
+                    {
+                        if (weUseEquals == true)
+                        {
+                            temp_numstring.Text = "";
+                            //weUseEquals = false;
+                        }
+
+                        else if (Current_numstring.Text == operant1.ToString())
                         {
                             return;
                         }
@@ -183,6 +224,8 @@ namespace WindowsForm_Calculator
                 operant1 = 0;
                 operant2 = 0;
 
+                zeroDiv = false;
+                weUseEquals = false;
                 weSelectOperation = false;
                 weTypeSomething = false;
                 equalasrepit = false;
@@ -209,6 +252,8 @@ namespace WindowsForm_Calculator
             operant1 = 0;
             operant2 = 0;
 
+            zeroDiv = false;
+            weUseEquals = false;
             weSelectOperation = false;
             weTypeSomething = false;
             equalasrepit = false;
@@ -219,6 +264,7 @@ namespace WindowsForm_Calculator
         /// </summary>
         private void operation(object sender, EventArgs e)
         {
+            weUseEquals = false;
             equalasrepit = false;
 
             if (Current_numstring.Text == "Не число" || Current_numstring.Text == "∞")
@@ -253,8 +299,11 @@ namespace WindowsForm_Calculator
 
                 weTypeSomething = false;
                 weSelectOperation = true; //говорим о том, что мы теперь уже выбрали операцию и другие работают по другому правилу
-                temp_numstring.Text = operant1.ToString() + ((Button)sender).Text; //уводим предворительную форму в temp_numstring для удобства
-                Current_numstring.Text = operant1.ToString(); //не знаб зачем но Windows calculator дает изначально в вод предварительный результат
+                if (!zeroDiv)
+                {
+                    temp_numstring.Text = operant1.ToString() + ((Button)sender).Text;
+                    Current_numstring.Text = operant1.ToString();
+                }
             }
 
             //вычетание
@@ -282,8 +331,11 @@ namespace WindowsForm_Calculator
 
                 weTypeSomething = false;
                 weSelectOperation = true;
-                temp_numstring.Text = operant1.ToString() + ((Button)sender).Text;
-                Current_numstring.Text = operant1.ToString();
+                if (!zeroDiv)
+                {
+                    temp_numstring.Text = operant1.ToString() + ((Button)sender).Text;
+                    Current_numstring.Text = operant1.ToString();
+                }
             }
 
             //умножение
@@ -311,8 +363,11 @@ namespace WindowsForm_Calculator
 
                 weTypeSomething = false;
                 weSelectOperation = true;
-                temp_numstring.Text = operant1.ToString() + ((Button)sender).Text;
-                Current_numstring.Text = operant1.ToString();
+                if (!zeroDiv)
+                {
+                    temp_numstring.Text = operant1.ToString() + ((Button)sender).Text;
+                    Current_numstring.Text = operant1.ToString();
+                }
             }
 
             //деление
@@ -338,15 +393,21 @@ namespace WindowsForm_Calculator
                     }
                 }
 
+                
                 weTypeSomething = false;
                 weSelectOperation = true;
-                temp_numstring.Text = operant1.ToString() + ((Button)sender).Text;
-                Current_numstring.Text = operant1.ToString();
+                if (!zeroDiv)
+                {
+                    temp_numstring.Text = operant1.ToString() + ((Button)sender).Text;
+                    Current_numstring.Text = operant1.ToString();
+                }
             }
 
             //смена знака
             if (((Button)sender).Text == "±")
             {
+                if (Current_numstring.Text == "0")
+                    return;
                 double num = double.Parse(Current_numstring.Text) * (-1);
                 Current_numstring.Text = num.ToString();
             }
@@ -403,6 +464,8 @@ namespace WindowsForm_Calculator
         /// </summary>
         private void equals_operation(object sender, EventArgs e)
         {
+            weUseEquals = true;
+
             if (Current_numstring.Text == "Не число" || Current_numstring.Text == "∞")
             {
                 disabledAllButton();
@@ -543,6 +606,7 @@ namespace WindowsForm_Calculator
                 {
                     temp.Text = operant.ToString() + old_operation;
                     current.Text = "деление на 0";
+                    zeroDiv = true;
                     disabledAllButton();
                 }
                 else
@@ -591,6 +655,11 @@ namespace WindowsForm_Calculator
             button_plusminus.Enabled = false;
             button_comma.Enabled = false;
             button_equals.Enabled = false;
+        }
+
+        public void Zerodev()
+        {
+            Current_numstring.Text = "деление на 0";
         }
     }
 }

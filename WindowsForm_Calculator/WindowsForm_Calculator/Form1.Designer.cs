@@ -490,8 +490,8 @@
             Controls.Add(num_0);
             Controls.Add(button_plusminus);
             Margin = new Padding(3, 4, 3, 4);
-            MaximumSize = new Size(388, 672);
-            MinimumSize = new Size(388, 0);
+            MaximumSize = new Size(388, 608);
+            MinimumSize = new Size(388, 608);
             Name = "Form1";
             Text = "Калькулятор";
             ResumeLayout(false);
